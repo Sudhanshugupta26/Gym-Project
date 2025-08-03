@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import {supabase} from "@/supabase/supabaseClient";
+import {useRouter} from "next/navigation";
+import { toast } from 'react-hot-toast';
 
 export default function SignupPage() {
     const [formData, setFormData] = useState({
@@ -10,26 +13,46 @@ export default function SignupPage() {
         confirmPassword: ''
     });
 
+    const router = useRouter();
+
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
-        setFormData((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }));
+
+        const { name, value } = e.target;
+        setFormData({...formData,[name]:value});
+
+
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
             return;
         }
 
         setError('');
-        console.log('User Registered:', formData);
-        // TODO: Send formData to your backend or Supabase here
+
+        const { data, error } = await supabase.auth.signUp({
+            email: formData.email,
+            password: formData.password,
+            options: {
+                data: {
+                    name: formData.name, // 👈 This will store the display name
+                },
+            },
+        },toast.success('Signup successful! Please check your email for verification.'));
+
+        if (error) {
+            toast.error(error.message);
+        } else {
+            await router.push('/login');
+        }
     };
+
+
 
     return (
         <div className="container mt-5" style={{ maxWidth: '500px' }}>

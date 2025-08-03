@@ -1,20 +1,26 @@
 // app/layout.jsx
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Toaster} from 'react-hot-toast';
 
 export const metadata = {
   title: 'My App',
   description: 'This is a sample Next.js App',
 };
 
+
 export default function RootLayout({ children }) {
   return (
       <html lang="en">
       <body>
+      <Toaster position="top-right" />
       <Header />
       <main>{children}</main>
-      <Footer />
+      <footer>
+          <Footer />
+      </footer>
+
       </body>
       </html>
   );
