@@ -49,7 +49,9 @@ export default function Header() {
                             { href: '/', label: 'Home' },
                             { href: '/program', label: 'Programs' },
                             { href: '/trainers', label: 'Trainers' },
-                            { href: '/contact', label: 'Contact' }
+                            { href: '/contact', label: 'Contact' },
+                            { href: '/nutrition', label: 'Nutrition' },
+                            { href: '/progress', label: 'Progress' }
                         ].map(({ href, label }) => (
                             <li className="nav-item" key={href}>
                                 <a

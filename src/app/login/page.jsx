@@ -25,7 +25,7 @@ export default function LoginPage() {
         if (error) {
             toast.error(error.message);
         } else {
-            toast.success('Logged in successfully!');
+            toast.success('Logged in successfully!',{position:"top-center"});
             router.push('/');
         }
     };

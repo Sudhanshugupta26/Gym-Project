@@ -207,6 +207,8 @@ export default function HomePage() {
                                         <p className="mb-2 fst-italic">
                                             "Since I started using Gym Mate, I’ve lost 8kg and feel stronger than ever!"
                                         </p>
+
+                                        <p></p>
                                         <footer className="blockquote-footer">Ankit Verma, Lucknow</footer>
                                     </div>
                                 </div>
@@ -215,6 +217,8 @@ export default function HomePage() {
                                         <p className="mb-2 fst-italic">
                                             "The nutrition tracker helped me finally stay consistent with my diet."
                                         </p>
+
+                                        <p></p>
                                         <footer className="blockquote-footer">Riya Sharma, Delhi</footer>
                                     </div>
                                 </div>
@@ -223,6 +227,7 @@ export default function HomePage() {
                                         <p className="mb-2 fst-italic">
                                             "Clean UI, accurate tracking, and easy to use. Highly recommend it!"
                                         </p>
+                                        <p></p>
                                         <footer className="blockquote-footer">Neeraj Patel, Pune</footer>
                                     </div>
                                 </div>

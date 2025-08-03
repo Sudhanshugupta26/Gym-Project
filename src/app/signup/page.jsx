@@ -43,10 +43,10 @@ export default function SignupPage() {
                     name: formData.name, // 👈 This will store the display name
                 },
             },
-        },toast.success('Signup successful! Please check your email for verification.'));
+        },toast.success('Signup successful! Please check your email for verification.',{position:"top-center"}));
 
         if (error) {
-            toast.error(error.message);
+            toast.error(error.message,{position:"top-center"});
         } else {
             await router.push('/login');
         }
