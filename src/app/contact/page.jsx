@@ -1,38 +1,107 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/supabase/supabaseClient';
+import { toast } from 'react-hot-toast';
+import { z } from 'zod';
 
 export default function ContactPage() {
+    const router = useRouter();
+
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
         subject: '',
         message: ''
     });
+
     const [submitted, setSubmitted] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [userEmail, setUserEmail] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    // Validation schema
+    const schema = z.object({
+        name: z.string().min(2, "Name too short").max(100),
+        subject: z.string().min(2, "Subject too short").max(200),
+        message: z.string().min(5, "Message too short").max(1000)
+    });
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            const {
+                data: { session }
+            } = await supabase.auth.getSession();
+
+            if (!session?.user) {
+                router.push('/login');
+            } else {
+                setUserId(session.user.id);
+                setUserEmail(session.user.email);
+                setLoading(false);
+            }
+        };
+
+        checkAuth();
+    }, [router]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // You can replace this with backend logic (Supabase, API, email service, etc.)
-        console.log('Form submitted:', formData);
-        setSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        const validation = schema.safeParse(formData);
+        if (!validation.success) {
+            const firstError = validation.error.errors[0]?.message;
+            toast.error(firstError || 'Validation error.', { position: 'top-center' });
+            return;
+        }
+
+        try {
+            const { error } = await supabase.from('contact_messages').insert([
+                {
+                    name: formData.name.trim(),
+                    subject: formData.subject.trim(),
+                    message: formData.message.trim(),
+                    email: userEmail,
+                    user_id: userId
+                }
+            ]);
+
+            if (error) {
+                if (error.message.includes('violates row-level security')) {
+                    toast.error('You can only send one message every 5 minutes.', {
+                        position: 'top-center'
+                    });
+                } else {
+                    console.error('Submission error:', error.message);
+                    toast.error('Something went wrong. Please try again.', {
+                        position: 'top-center'
+                    });
+                }
+                return;
+            }
+
+            setSubmitted(true);
+            if(submitted){
+                toast.success('Message sent successfully!', { position: 'top-center' });
+            }
+            setFormData({ name: '', subject: '', message: '' });
+        } catch (err) {
+            console.error('Submission Error:', err.message);
+            toast.error('Unexpected error occurred.', { position: 'top-center' });
+        }
     };
+
+    if (loading) {
+        return <div className="text-center mt-5">Checking authentication...</div>;
+    }
 
     return (
         <div className="container mt-5" style={{ maxWidth: '700px' }}>
             <h1 className="text-center mb-4">Contact Us</h1>
-
-            {submitted && (
-                <div className="alert alert-success" role="alert">
-                    Your message has been sent successfully!
-                </div>
-            )}
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -45,19 +114,7 @@ export default function ContactPage() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                    />
-                </div>
-
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
+                        autoComplete="name"
                     />
                 </div>
 
@@ -71,6 +128,7 @@ export default function ContactPage() {
                         required
                         value={formData.subject}
                         onChange={handleChange}
+                        autoComplete="off"
                     />
                 </div>
 
