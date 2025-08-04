@@ -56,7 +56,7 @@ export default function SignupPage() {
 
     return (
         <div className="container mt-5" style={{ maxWidth: '500px' }}>
-            <h2 className="text-center mb-4 text-primary">Create an Account</h2>
+            <h2 className="text-center mb-4">Create an Account on <strong>Gym Mate</strong></h2>
 
             {error && <div className="alert alert-danger">{error}</div>}
 
@@ -121,6 +121,7 @@ export default function SignupPage() {
                     Already have an account? <a href="/login">Login here</a>
                 </small>
             </div>
+            <p></p>
         </div>
     );
 }

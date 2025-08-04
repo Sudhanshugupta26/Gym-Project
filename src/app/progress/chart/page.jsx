@@ -61,9 +61,10 @@ export default function ProgressCharts({ userId }) {
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={progressData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
+                    <XAxis dataKey="date" stroke="	#4169E1" />
+                    <YAxis stroke = "#FF6347"/>
+                    <Tooltip contentStyle={{ backgroundColor: '#fff', color: '#000', borderRadius: '10px' }}
+                             labelStyle={{ color: 'black' }}/>
                     <Legend />
                     <Line type="monotone" dataKey="sleep_hours" stroke="#00bcd4" name="Sleep Hours" />
                     <Line type="monotone" dataKey="water_intake" stroke="#82ca9d" name="Water Intake (L)" />
@@ -76,9 +77,10 @@ export default function ProgressCharts({ userId }) {
             <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={progressData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis domain={[1, 5]} />
-                    <Tooltip />
+                    <XAxis dataKey="date" stroke = "#4169E1" />
+                    <YAxis domain={[1, 5]} stroke = "#FF6347"/>
+                    <Tooltip contentStyle={{ backgroundColor: '#fff', color: '#000', borderRadius: '10px' }}
+                             labelStyle={{ color: 'black' }}/>
                     <Bar dataKey="mood_score" fill="#ff7f50" name="Mood Score" />
                 </BarChart>
             </ResponsiveContainer>
@@ -88,9 +90,10 @@ export default function ProgressCharts({ userId }) {
             <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={progressData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
+                    <XAxis dataKey="date" stroke = "#4169E1"/>
+                    <YAxis stroke = "#FF6347"/>
+                    <Tooltip contentStyle={{ backgroundColor: '#fff', color: '#000', borderRadius: '10px' }}
+                             labelStyle={{ color: 'black' }}/>
                     <Bar dataKey="workout_duration" fill="#00bfa5" name="Workout (min)" />
                 </BarChart>
             </ResponsiveContainer>
@@ -100,9 +103,10 @@ export default function ProgressCharts({ userId }) {
             <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={progressData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
+                    <XAxis dataKey="date" stroke = "#4169E1"/>
+                    <YAxis stroke = "#FF6347"/>
+                    <Tooltip contentStyle={{ backgroundColor: '#fff', color: '#000', borderRadius: '10px' }}
+                             labelStyle={{ color: 'black' }}/>
                     <Line type="monotone" dataKey="steps_walked" stroke="#9c27b0" name="Steps" />
                 </LineChart>
             </ResponsiveContainer>
@@ -125,9 +129,11 @@ export default function ProgressCharts({ userId }) {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip contentStyle={{ backgroundColor: '#fff', color: '#000', borderRadius: '10px' }}
+                             labelStyle={{ color: 'black' }}/>
                 </PieChart>
             </ResponsiveContainer>
+            <p></p>
         </div>
     );
 }

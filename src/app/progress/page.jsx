@@ -225,6 +225,7 @@ export default function ProgressPage() {
                 <button type="submit" className="btn btn-primary">
                     Submit Progress
                 </button>
+                <p></p>
             </form>
         </div>
     );

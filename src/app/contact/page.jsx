@@ -26,7 +26,7 @@ export default function ContactPage() {
 
     return (
         <div className="container mt-5" style={{ maxWidth: '700px' }}>
-            <h2 className="text-center mb-4">Contact Us</h2>
+            <h1 className="text-center mb-4">Contact Us</h1>
 
             {submitted && (
                 <div className="alert alert-success" role="alert">
@@ -89,6 +89,7 @@ export default function ContactPage() {
 
                 <button type="submit" className="btn btn-primary w-100">Send Message</button>
             </form>
+            <p></p>
         </div>
     );
 }

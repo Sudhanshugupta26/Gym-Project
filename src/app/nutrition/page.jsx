@@ -232,7 +232,7 @@ export default function NutritionPage() {
                 </div>
             </div>
 
-            <div className="mt-5 p-4 bg-light rounded">
+            <div className="mt-5 p-4 bg-light rounded nutrition-tips">
                 <h4>💡 Health & Nutrition Tips</h4>
                 <ul>
                     <li>Take at least 1.5x grams of protein as compared to your body weight in Kg to build muscles.</li>

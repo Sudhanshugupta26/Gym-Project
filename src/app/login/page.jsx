@@ -72,6 +72,7 @@ export default function LoginPage() {
             <p className="text-center mt-3">
                 Don't have an account? <a href="/signup">Sign up</a>
             </p>
+            <p></p>
         </div>
     );
 }

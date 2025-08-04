@@ -1,7 +1,7 @@
 // components/Footer.jsx
 export default function Footer() {
     return (
-        <footer style={{ padding: '10px', backgroundColor: '#eee' }} className="pt-4 pb-3">
+        <footer style={{ padding: '10px' }} className="pt-4 pb-3">
             <div className="container">
                 <div className="row">
                     <div className="col-md-3">
@@ -37,7 +37,7 @@ export default function Footer() {
                 <div className="row">
                     <div className="col-md-12 text-center">
                         <hr />
-                        <p className="text-center mt-3">© {new Date().getFullYear()} Gym App. All rights reserved.</p>
+                        <p className="text-center mt-3 copyright">© {new Date().getFullYear()} Gym App. All rights reserved.</p>
                     </div>
                 </div>
             </div>

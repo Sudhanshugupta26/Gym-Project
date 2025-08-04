@@ -16,7 +16,10 @@ export default function RootLayout({ children }) {
       <html lang="en">
       <body>
       <Toaster position="top-right" />
-      <Header />
+      <header>
+          <Header />
+      </header>
+
       <main>{children}</main>
       <footer>
           <Footer />

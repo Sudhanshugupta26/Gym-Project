@@ -35,9 +35,9 @@ export default function Header() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg ">
             <div className="container-fluid">
-                <a className="navbar-brand" style={{ fontWeight: "bold" }} role="button" onClick={() => router.push('/')}>
+                <a className="navbar-brand" style={{ fontWeight: "bold", color:"greenyellow" }} role="button" onClick={() => router.push('/')}>
                     Gym Mate
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -55,7 +55,7 @@ export default function Header() {
                         ].map(({ href, label }) => (
                             <li className="nav-item" key={href}>
                                 <a
-                                    className={`nav-link ${pathname === href ? 'active' : ''}`}
+                                    className={`custom-nav-link ${pathname === href ? 'active' : ''}`}
                                     role="button"
                                     onClick={() => router.push(href)}
                                 >
