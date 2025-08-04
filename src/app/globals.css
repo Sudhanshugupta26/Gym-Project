@@ -10,14 +10,23 @@
   }
 }
 
-html, body {
-  height: 100%;
+html {
+  height: 100%; /* Important for footer */
   margin: 0;
 }
 
+body{/* Important for footer */
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {/* Important for footer */
+  margin-top:auto;
+  width: 100%;
+}
+
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
