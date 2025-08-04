@@ -88,6 +88,16 @@ footer {/* Important for footer */
   .btn-primary:hover{
     transform: scale(1.1);
   }
+
+  .btn-danger{
+    font-weight: bold;
+  }
+
+.btn-danger:hover{
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -108,6 +118,11 @@ textarea{
   border: 2px solid black!important;
 }
 
+  .navbar-toggler{
+    background-color: white;
+    border: 1px solid black;
+  }
+
 
 footer{
     h5, .copyright{
@@ -126,6 +141,11 @@ footer{
   }
   .title-below{
     color: white !important;
+  }
+
+  .navbar-toggler{
+    background-color: white;
+    border: 1px solid black;
   }
 
   .navbar-brand{
@@ -152,26 +172,6 @@ footer{
 
   header .custom-nav-link.active{
     color: greenyellow;
-  }
-
-  .btn-success{
-    background-color: greenyellow;
-    color: black;
-    font-weight: bold;
-  }
-  .btn-success:hover{
-    transform: scale(1.1);
-    background-color: greenyellow;
-    color: black;
-    font-weight: bold;
-  }
-
-  .btn-primary{
-    font-weight: bold;
-  }
-
-  .btn-primary:hover{
-    transform: scale(1.1);
   }
 
   .custom-nav-link.active{
