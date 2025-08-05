@@ -6,8 +6,8 @@ import {Toaster} from 'react-hot-toast';
 import '@/app/globals.css';
 
 export const metadata = {
-  title: 'My App',
-  description: 'This is a sample Next.js App',
+  title: 'Gym Mate',
+  description: 'The ultimate fitness tracking platform for everyone.',
 };
 
 
