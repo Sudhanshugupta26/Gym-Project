@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/supabase/supabaseClient';
 
+
 export default function HomePage() {
     const [session, setSession] = useState(null);
     const router = useRouter();
@@ -33,28 +34,28 @@ export default function HomePage() {
                         </p>
                         <section className="row text-center g-4 mb-5">
                             <div className="col-md-4">
-                                <div className="card h-100 border-0 shadow-sm">
+                                <div className="card h-100 border-1 shadow-sm">
                                     <div className="card-body">
                                         <h5 className="card-title fs-4">🏋️‍♂️ Personalized Workouts</h5>
-                                        <p className="card-text text-muted">Tailored training plans for strength, fat loss, or endurance.</p>
+                                        <p className="card-text text-black">Tailored training plans for strength, fat loss, or endurance.</p>
                                         <a href="/program" className="btn btn-outline-primary">Explore Plans</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="card h-100 border-0 shadow-sm">
+                                <div className="card h-100 border-1 shadow-sm">
                                     <div className="card-body">
                                         <h5 className="card-title fs-4">🥗 Smart Nutrition</h5>
-                                        <p className="card-text text-muted">Track meals, set macro goals, and stay accountable.</p>
+                                        <p className="card-text text-black">Track meals, set macro goals, and stay accountable.</p>
                                         <a href="/nutrition" className="btn btn-outline-success">Track Meals</a>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="card h-100 border-0 shadow-sm">
+                                <div className="card h-100 border-1 shadow-sm">
                                     <div className="card-body">
                                         <h5 className="card-title fs-4">📈 Progress Analytics</h5>
-                                        <p className="card-text text-muted">Visual dashboards to monitor your fitness journey.</p>
+                                        <p className="card-text text-black">Visual dashboards to monitor your fitness journey.</p>
                                         <a href="/progress" className="btn btn-outline-warning">View Stats</a>
                                     </div>
                                 </div>
@@ -67,19 +68,19 @@ export default function HomePage() {
                                 <h2 className="fw-bold mb-4">Why Choose Gym Mate?</h2>
                                 <ul className="list-group list-group-flush">
                                     <p></p>
-                                    <li className="card list-group-item mb-3">📊 Real-time progress tracking</li>
-                                    <li className="card list-group-item mb-3">🥦 Advanced nutrition and macro planner</li>
-                                    <li className="card list-group-item mb-3">🤖 AI-powered workout suggestions</li>
-                                    <li className="card list-group-item mb-3">📅 Schedule workouts & reminders</li>
-                                    <li className="card list-group-item mb-3">🧘 Mindfulness, sleep, and recovery tools</li>
+                                    <li className="card list-group-item mb-3 border-1">📊 Real-time progress tracking</li>
+                                    <li className="card list-group-item mb-3 border-1 ">🥦 Advanced nutrition and macro planner</li>
+                                    <li className="card list-group-item mb-3 border-1">🤖 AI-powered workout suggestions</li>
+                                    <li className="card list-group-item mb-3 border-1">📅 Schedule workouts & reminders</li>
+                                    <li className="card list-group-item mb-3 border-1">🧘 Mindfulness, sleep, and recovery tools</li>
                                     <p></p>
                                 </ul>
                             </div>
 
                             <div className="col-md-6">
                                 <h2 className="fw-bold mb-4">What Our Users Say</h2>
-                                <div className="card border-0 shadow-sm mb-3">
-                                    <div className="card-body">
+                                <div className="card border-1 shadow-sm mb-3">
+                                    <div className="card-body ">
                                         <p className="mb-2 fst-italic">
                                             "Since I started using Gym Mate, I’ve lost 8kg and feel stronger than ever!"
                                         </p>
@@ -88,7 +89,7 @@ export default function HomePage() {
                                         <footer className="blockquote-footer">Ankit Verma, Lucknow</footer>
                                     </div>
                                 </div>
-                                <div className="card border-0 shadow-sm mb-3">
+                                <div className="card border-1 shadow-sm mb-3">
                                     <div className="card-body">
                                         <p className="mb-2 fst-italic">
                                             "The nutrition tracker helped me finally stay consistent with my diet."
@@ -98,7 +99,7 @@ export default function HomePage() {
                                         <footer className="blockquote-footer">Riya Sharma, Delhi</footer>
                                     </div>
                                 </div>
-                                <div className="card border-0 shadow-sm">
+                                <div className="card border-1 shadow-sm">
                                     <div className="card-body">
                                         <p className="mb-2 fst-italic">
                                             "Clean UI, accurate tracking, and easy to use. Highly recommend it!"

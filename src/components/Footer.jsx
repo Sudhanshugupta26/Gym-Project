@@ -22,9 +22,9 @@ export default function Footer() {
                     <div className="col-md-3">
                         <h5>Follow Us</h5>
                         <ul className="list-unstyled">
-                            <li><a href="#" >Instagram</a></li>
-                            <li><a href="#" >Facebook</a></li>
-                            <li><a href="#" >Twitter</a></li>
+                            <li><a href="https://www.instagram.com/sudhanshu_gupta_26/" target='_blank' >Instagram</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=100045367022927" target='_blank'>Facebook</a></li>
+                            <li><a href="https://x.com/SudhanshuKGupta" target='_blank'>Twitter</a></li>
                         </ul>
                     </div>
                     <div className="col-md-3">

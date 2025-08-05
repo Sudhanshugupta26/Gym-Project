@@ -164,7 +164,7 @@ export default function NutritionPage() {
                 <button onClick={handleAddFood} className="btn btn-primary">Add</button>
             </div>
 
-            <div className="table-responsive">
+            <div className="table-responsive rounded-3">
                 <table className="table table-bordered align-middle text-center">
                     <thead className="table-light">
                     <tr>

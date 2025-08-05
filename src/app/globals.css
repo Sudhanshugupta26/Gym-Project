@@ -69,7 +69,7 @@ footer {/* Important for footer */
     font-weight: bold;
   }
   .btn-success:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     background-color: greenyellow;
     color: black;
     font-weight: bold;
@@ -86,7 +86,7 @@ footer {/* Important for footer */
   }
 
   .btn-primary:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   .btn-danger{
@@ -94,7 +94,7 @@ footer {/* Important for footer */
   }
 
 .btn-danger:hover{
-  transform: scale(1.1);
+  transform: scale(1.05);
   font-weight: bold;
 }
 
@@ -123,6 +123,10 @@ textarea{
     border: 1px solid black;
   }
 
+  .card{
+    border: 1px solid black;
+  }
+
 
 footer{
     h5, .copyright{
@@ -132,7 +136,7 @@ footer{
       text-decoration: none;
     }
     color: black;
-    background-color: #e6e5e5;
+    background-color:#e6e5e5;
   }
 
 @media (prefers-color-scheme: dark) {
