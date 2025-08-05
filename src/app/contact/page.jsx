@@ -59,6 +59,35 @@ export default function ContactPage() {
             return;
         }
 
+        // Step 1: Check last message by this user
+        const { data: lastMessages, error: fetchError } = await supabase
+            .from('contact_messages')
+            .select('created_at')
+            .eq('user_id', userId)
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (fetchError) {
+            toast.error('Error checking previous message time.', { position: 'top-center' });
+            return;
+        }
+
+        if (lastMessages.length > 0) {
+            const lastMessageTime = new Date(lastMessages[0].created_at);
+            const now = new Date();
+            const diffMs = now - lastMessageTime;
+            const diffMinutes = diffMs / (1000 * 60);
+
+            if (diffMinutes < 5) {
+                const remaining = Math.ceil(5 - diffMinutes);
+                toast.error(`Please wait ${remaining} more minute(s) before submitting again.`, {
+                    position: 'top-center'
+                });
+                return;
+            }
+        }
+
+        // Step 2: Insert new message
         try {
             const { error } = await supabase.from('contact_messages').insert([
                 {
@@ -71,23 +100,14 @@ export default function ContactPage() {
             ]);
 
             if (error) {
-                if (error.message.includes('violates row-level security')) {
-                    toast.error('You can only send one message every 5 minutes.', {
-                        position: 'top-center'
-                    });
-                } else {
-                    console.error('Submission error:', error.message);
-                    toast.error('Something went wrong. Please try again.', {
-                        position: 'top-center'
-                    });
-                }
+                toast.error('Something went wrong. Please try again.', {
+                    position: 'top-center'
+                });
                 return;
             }
 
             setSubmitted(true);
-            if(submitted){
-                toast.success('Message sent successfully!', { position: 'top-center' });
-            }
+            toast.success('Message sent successfully!', { position: 'top-center' });
             setFormData({ name: '', subject: '', message: '' });
         } catch (err) {
             console.error('Submission Error:', err.message);

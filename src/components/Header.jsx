@@ -71,7 +71,11 @@ export default function Header() {
                                 <button className="btn btn-primary" onClick={() => router.push('/signup')}>Sign Up</button>
                             </>
                         ) : (
-                            <button className="btn btn-danger" onClick={handleLogout}>Log Out</button>
+                            <>
+                            <button className="btn btn-danger me-2" onClick={handleLogout}>Log Out</button>
+                            <button className="btn btn-primary me-2" onClick={() => router.push('/change-password')}>Change Password</button>
+                            <button className="btn btn-primary" onClick={() => router.push('/change-email')}>Change Email</button>
+                            </>
                         )}
                     </div>
                 </div>
