@@ -5,6 +5,7 @@ import { supabase } from '@/supabase/supabaseClient';
 import { useRouter } from 'next/navigation';
 import ProgressCharts from "@/app/progress/chart/page";
 import {toast} from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 export default function ProgressPage() {
     const [session, setSession] = useState(null);
@@ -64,25 +65,36 @@ export default function ProgressPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const confirmed = window.confirm("Are you sure you want to submit today's progress?");
-        if (!confirmed) return;
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to submit today's progress?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, submit it!',
+            cancelButtonText: 'Cancel'
+        });
 
-        const { error } = await supabase.from('daily_progress').insert([
-            {
-                user_id: session.id,
-                ...formData,
-                date: new Date().toISOString().split('T')[0],
-            },
-        ]);
+        if (result.isConfirmed) {
 
-        if (error) {
-            toast.error('Error submitting data.',{position:"top-center"});
-            setMessage('Error submitting data.');
-            console.error(error);
-        } else {
-            toast.success('Progress submitted successfully!',{position:"top-center"});
-            setMessage('Progress submitted successfully!');
-            setAlreadySubmitted(true);
+            const {error} = await supabase.from('daily_progress').insert([
+                {
+                    user_id: session.id,
+                    ...formData,
+                    date: new Date().toISOString().split('T')[0],
+                },
+            ]);
+
+            if (error) {
+                toast.error('Error submitting data.', {position: "top-center"});
+                setMessage('Error submitting data.');
+                console.error(error);
+            } else {
+                toast.success('Progress submitted successfully!', {position: "top-center"});
+                setMessage('Progress submitted successfully!');
+                setAlreadySubmitted(true);
+            }
         }
     };
 
