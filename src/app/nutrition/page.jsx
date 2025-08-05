@@ -4,37 +4,47 @@ import { supabase } from '@/supabase/supabaseClient';
 import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { toast } from 'react-hot-toast';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 export default function NutritionPage() {
     const [query, setQuery] = useState('');
     const [foodLog, setFoodLog] = useState([]);
+    const [session, setSession] = useState(null);
     const toastRef = useRef(null);
+    const router = useRouter();
+    const API_SECRET_KEY= process.env.NEXT_PUBLIC_API_SECRET_KEY;
+    const API_ID= process.env.NEXT_PUBLIC_API_ID;
+
 
     const toTitleCase = (str) =>
         str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
-    const fetchFoodLog = async () => {
+    // Check session and fetch user's food log
+    useEffect(() => {
+        const init = async () => {
+            const { data } = await supabase.auth.getSession();
+            if (!data.session) {
+                router.push('/login');
+                return;
+            }
+
+            setSession(data.session);
+            await fetchFoodLog(data.session.user.id);
+        };
+
+        init();
+    }, []);
+
+    const fetchFoodLog = async (userId) => {
         const { data, error } = await supabase
             .from('foods')
             .select('*')
+            .eq('user_id', userId)
             .order('created_at', { ascending: false });
 
         if (error) console.error('Error fetching food log:', error);
         else setFoodLog(data);
     };
-
-    const [session, setSession] = useState(null);
-    const router = useRouter();
-
-    useEffect(() => {
-        const checkSession = async () => {
-            const { data } = await supabase.auth.getSession();
-            if (!data.session) router.push('/login');
-            setSession(data.session);
-        };
-        checkSession().then(fetchFoodLog());
-    }, []);
 
     const handleAddFood = async () => {
         if (query.trim() === '') {
@@ -42,18 +52,25 @@ export default function NutritionPage() {
             return;
         }
 
-        const capitalizedQuery = query.trim().toUpperCase();
+        const formattedName = toTitleCase(query.trim());
+        const userId = session?.user?.id;
 
-        // Check if exists in DB
+        if (!userId) return;
+
+        // Check if food with same name already exists for this user (case-insensitive exact match)
         const { data: existing, error: existingError } = await supabase
             .from('foods')
             .select('*')
-            .ilike('name', `%${capitalizedQuery}%`);
+            .eq('user_id', userId)
+            .filter('name', 'ilike', formattedName);
 
-        if (existingError) console.error('DB Check Error:', existingError);
+        if (existingError) {
+            console.error('DB Check Error:', existingError);
+            return;
+        }
 
         if (existing && existing.length > 0) {
-            setFoodLog((prev) => [...existing, ...prev]);
+            toast.error('You already logged this food item!', { position: 'top-center' });
             setQuery('');
             return;
         }
@@ -61,11 +78,11 @@ export default function NutritionPage() {
         try {
             const response = await axios.post(
                 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-                { query: capitalizedQuery },
+                { query: formattedName },
                 {
                     headers: {
-                        'x-app-id': 'be891f16',
-                        'x-app-key': '1e9ae5d831092a0c6815931739e4b966',
+                        'x-app-id': API_ID,
+                        'x-app-key': API_SECRET_KEY,
                         'Content-Type': 'application/json',
                     },
                 }
@@ -84,6 +101,7 @@ export default function NutritionPage() {
                 const { data, error } = await supabase
                     .from('foods')
                     .insert([{
+                        user_id: userId,
                         name: toTitleCase(food.food_name),
                         calories: food.nf_calories,
                         protein: food.nf_protein,
@@ -95,8 +113,11 @@ export default function NutritionPage() {
                     }])
                     .select('*');
 
-                if (error) console.error('Insert error:', error);
-                else inserted.push(data[0]);
+                if (error) {
+                    console.error('Insert error:', error);
+                } else {
+                    inserted.push(data[0]);
+                }
             }
 
             setFoodLog((prev) => [...inserted, ...prev]);
@@ -140,9 +161,7 @@ export default function NutritionPage() {
                     onChange={(e) => setQuery(e.target.value.toUpperCase())}
                     placeholder="Insert food name or ingredients"
                 />
-                <button onClick={handleAddFood} className="btn btn-primary">
-                    Add
-                </button>
+                <button onClick={handleAddFood} className="btn btn-primary">Add</button>
             </div>
 
             <div className="table-responsive">
@@ -209,27 +228,6 @@ export default function NutritionPage() {
                     )}
                     </tbody>
                 </table>
-            </div>
-
-            {/* Toast for feedback */}
-            <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 9999 }}>
-                <div
-                    id="liveToast"
-                    className="toast align-items-center text-white bg-danger border-0"
-                    role="alert"
-                    aria-live="assertive"
-                    aria-atomic="true"
-                >
-                    <div className="d-flex">
-                        <div className="toast-body" ref={toastRef}></div>
-                        <button
-                            type="button"
-                            className="btn-close btn-close-white me-2 m-auto"
-                            data-bs-dismiss="toast"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                </div>
             </div>
 
             <div className="mt-5 p-4 bg-light rounded nutrition-tips">
